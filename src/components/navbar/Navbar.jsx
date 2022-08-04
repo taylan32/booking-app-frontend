@@ -3,7 +3,7 @@ import './navbar.css'
 export default function Navbar() {
 
   return (
-    <div className='navbar'>
+    <nav className='navbar'>
         <div className="nav_container">
             <span className='logo'>Booking.com</span>
             <div className='nav_items'>
@@ -11,6 +11,6 @@ export default function Navbar() {
                 <button className = "nav_button">Login</button>
             </div>
         </div>
-    </div>
+    </nav>
   )
 }
