@@ -1,0 +1,125 @@
+.header {
+  background-color: #003580;
+  color: white;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.header_container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 1.25rem 0rem 6rem 0rem; /*top left bottom right */
+}
+.header_container.list_mode {
+  margin: 1.25rem 0rem 0rem 0rem;
+}
+
+.header_list {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.header_list_item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+.header_list_item.active {
+  border: 1px solid white;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+
+.header_description {
+  margin: 1.25rem 0;
+}
+
+.header_button {
+  background-color: #0071c2;
+  color: white;
+  font-weight: 500;
+  border: none;
+  padding: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+}
+.header_search {
+  height: 2rem;
+  background-color: white;
+  border: 3px solid #febb02;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.625rem 0;
+  border-radius: 5px;
+  position: absolute;
+  bottom: -1.75rem;
+  width: 100%;
+  max-width: 1024px;
+}
+
+.header_icon {
+  color: lightgray;
+}
+
+.header_search_item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.header_search_input {
+  border: none;
+  outline: none;
+}
+
+.header_search_text {
+  color: lightgray;
+  cursor: pointer;
+  user-select: none;
+}
+.date {
+  position: absolute;
+  top: 3.3rem;
+}
+
+.options {
+  background-color: white;
+  position: absolute;
+  top: 3.3rem;
+  color: gray;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+.option_item {
+  width: 12.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.6rem;
+}
+.option_counter {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  color: black;
+}
+
+.option_counter_button {
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #0071c2;
+  color: #0071c2;
+  background-color: white;
+}
+
+.option_counter_button:disabled {
+  cursor: not-allowed;
+}
