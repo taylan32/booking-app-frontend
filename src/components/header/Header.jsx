@@ -13,9 +13,11 @@ import "./header.css";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 export default function Header(props) {
   const { type } = props;
   const [openDate, setOpenDate] = useState(false);
+  const [destination, setDestination] = useState("");
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -30,6 +32,8 @@ export default function Header(props) {
     children: 0,
     room: 1,
   });
+
+  const navigate = useNavigate();
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -39,9 +43,19 @@ export default function Header(props) {
     });
   };
 
+  const handleSearch = () => {
+    navigate("/hotels", { state: { destination, date, options } });
+  };
+
   return (
     <div className="header">
-      <div className={ type === "hotelList" ? "header_container list_mode": "header_container"}>
+      <div
+        className={
+          type === "hotelList"
+            ? "header_container list_mode"
+            : "header_container"
+        }
+      >
         <div className="header_list">
           <div className="header_list_item active">
             <FontAwesomeIcon icon={faBed} />
@@ -64,8 +78,7 @@ export default function Header(props) {
             <span>Airport taxis</span>
           </div>
         </div>
-        {
-            type !== "hotelList" &&
+        {type !== "hotelList" && (
           <>
             <h1 className="header_title">
               A lifetime of discount? It's Genius.
@@ -83,6 +96,7 @@ export default function Header(props) {
                   type="text"
                   placeholder="Where are you going?"
                   className="header_search_input"
+                  onChange={(input) => setDestination(input.target.value)}
                 />
               </div>
 
@@ -94,9 +108,9 @@ export default function Header(props) {
                 <span
                   onClick={() => setOpenDate(!openDate)}
                   className="header_search_text"
-                >{`${format(date[0].startDate, "dd/mm/yyy")} to ${format(
+                >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
                   date[0].endDate,
-                  "dd/mm/yyyy"
+                  "MM/dd/yyyy"
                 )}`}</span>
                 {openDate && (
                   <DateRange
@@ -105,6 +119,7 @@ export default function Header(props) {
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
+                    minDate = {new Date()}
                   />
                 )}
               </div>
@@ -187,11 +202,13 @@ export default function Header(props) {
                 )}
               </div>
               <div className="header_search_item">
-                <button className="header_button">Search</button>
+                <button className="header_button" onClick={handleSearch}>
+                  Search
+                </button>
               </div>
             </div>
           </>
-        }
+        )}
       </div>
     </div>
   );

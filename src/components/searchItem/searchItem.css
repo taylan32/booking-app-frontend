@@ -1,0 +1,103 @@
+.search_item {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid lightgray;
+  padding: 0.625rem;
+  border-radius: 2px;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.search_item img {
+  width: 12.5rem;
+  height: 12.5rem;
+  object-fit: cover;
+}
+
+.search_item_description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  flex: 2;
+}
+.search_item_title {
+  font-size: 1.25rem;
+  color: #0071c2;
+}
+
+.search_item_distance {
+  font-size: 0.75rem;
+}
+.search_item_options {
+  font-size: 0.75rem;
+  background-color: #008009;
+  color: white;
+  width: max-content;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.search_item_subtitle {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.search_item_features {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+.search_item_cancel_option {
+  font-size: 0.75rem;
+  color: #008009;
+  font-weight: bold;
+}
+
+.search_item_options_subtitle {
+  font-size: 0.75rem;
+  color: #008009;
+  font-weight: 500;
+}
+
+.search_item_details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.search_item_rating {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search_item_rating_button {
+  background-color: #003580;
+  color: white;
+  padding: 0.35rem;
+  font-weight: bold;
+  border: none;
+}
+
+.search_item_detail_texts {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.search_item_price {
+  font-size: 1.5rem;
+}
+
+.search_item_tax_options {
+  font-size: 0.75rem;
+  color: gray;
+}
+
+.search_item_check_button {
+  background-color: #0071c2;
+  color: white;
+  font-weight: bold;
+  padding: 10px 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
