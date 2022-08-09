@@ -8,12 +8,22 @@ import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 import MailList from "../../components/mailList/MailList";
 import Footer from "../../components/footer/Footer";
+import useFetch from "../../hooks/useFetch";
 export default function HotelList() {
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
-  const [date, setDate] = useState(location.state.date);
+  const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState(location.state.options);
+  const [min, setMin] = useState(undefined)
+  const [max, setMax] = useState(undefined)
+
+  const {data, loading, error, reFetch} = useFetch(`/hotels?min=${min || 0 }&max=${max || 9999}`)
+
+  const handleSearch = () => {
+    reFetch()
+  }
+
   return (
     <div>
       <Navbar />
@@ -29,13 +39,13 @@ export default function HotelList() {
             <div className="list_search_item">
               <label>Check-in Date</label>
               <span onClick={() => setOpenDate(!openDate)}>{`${format(
-                date[0].startDate,
+                dates[0].startDate,
                 "MM/dd/yyyy"
-              )} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+              )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
               {openDate && (
                 <DateRange
-                  onChange={(item) => setDate([item.selection])}
-                  ranges={date}
+                  onChange={(item) => setDates([item.selection])}
+                  ranges={dates}
                   minDate={new Date()}
                 />
               )}
@@ -47,14 +57,18 @@ export default function HotelList() {
                   <span className="list_search_option_text">
                     Min price <small>per night</small>
                   </span>
-                  <input type="number" className="list_search_option_input" />
+                  <input type="number" className="list_search_option_input" 
+                    onChange={e => setMin(e.target.value)}
+                  />
                 </div>
 
                 <div className="list_search_option_item">
                   <span className="list_search_option_text">
                     Max price <small>per night</small>{" "}
                   </span>
-                  <input type="number" className="list_search_option_input" />
+                  <input type="number" className="list_search_option_input" 
+                    onChange={e => setMax(e.target.value)}
+                  />
                 </div>
 
                 <div className="list_search_option_item">
@@ -88,13 +102,16 @@ export default function HotelList() {
                 </div>
               </div>
             </div>
-            <button>Search</button>
+            <button onClick= {handleSearch} >Search</button>
           </div>
           <div className="list_result">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+            {loading ? "loading...": <>
+              {
+                data.data?.map((item, i) => (
+                  <SearchItem item = {item} key = {item._id} />
+                ))
+              }
+            </>}
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@
 }
 .featured_property_image {
     width: 100%;
+    cursor: pointer;
 }
 .featured_property_name {
     font-weight: bold;

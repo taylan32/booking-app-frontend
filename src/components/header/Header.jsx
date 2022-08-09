@@ -8,17 +8,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateRange } from "react-date-range";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./header.css";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
+import { AuthContext } from "../../context/AuthContext";
 export default function Header(props) {
   const { type } = props;
   const [openDate, setOpenDate] = useState(false);
   const [destination, setDestination] = useState("");
-  const [date, setDate] = useState([
+  const [dates, setDates] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
@@ -26,6 +28,7 @@ export default function Header(props) {
     },
   ]);
 
+  const {user} = useContext(AuthContext)
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
@@ -43,8 +46,11 @@ export default function Header(props) {
     });
   };
 
+  const { dispatch } = useContext(SearchContext);
+
   const handleSearch = () => {
-    navigate("/hotels", { state: { destination, date, options } });
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+    navigate("/hotels", { state: { destination, dates, options } });
   };
 
   return (
@@ -85,9 +91,9 @@ export default function Header(props) {
             </h1>
             <p className="header_description">
               Get rewarded for your travels – unlock instant savings of 10% or
-              more with a free Lamabooking account
+              more with a free Booking account
             </p>
-            <button className="header_button">Sign in / Register</button>
+            {!user && <button className="header_button">Sign in / Register</button>}
 
             <div className="header_search">
               <div className="header_search_item">
@@ -108,18 +114,18 @@ export default function Header(props) {
                 <span
                   onClick={() => setOpenDate(!openDate)}
                   className="header_search_text"
-                >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
-                  date[0].endDate,
+                >{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(
+                  dates[0].endDate,
                   "MM/dd/yyyy"
                 )}`}</span>
                 {openDate && (
                   <DateRange
                     editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
+                    onChange={(item) => setDates([item.selection])}
                     moveRangeOnFirstSelection={false}
-                    ranges={date}
+                    ranges={dates}
                     className="date"
-                    minDate = {new Date()}
+                    minDate={new Date()}
                   />
                 )}
               </div>
